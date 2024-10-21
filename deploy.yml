@@ -1,0 +1,27 @@
+---
+- hosts: app_servers
+  become: true
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: Pull the latest Flask app image from Docker Hub
+      docker_image:
+        name: karansahota/flask-app
+        source: pull
+
+    - name: Stop and remove any existing container
+      docker_container:
+        name: flask_app
+        state: absent
+
+    - name: Run the Flask app container
+      docker_container:
+        name: flask_app
+        image: karansahota/flask-app:latest
+        state: started
+        ports:
+          - "80:80"

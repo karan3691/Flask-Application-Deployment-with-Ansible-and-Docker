@@ -1,0 +1,74 @@
+
+# Commands for the Ubuntu Server (Slave Machine)
+
+1. Update the Package Index:
+   sudo apt update
+
+2. Install Docker:
+   sudo apt install docker.io -y
+
+3. Start Docker Service:
+   sudo systemctl start docker
+
+4. Enable Docker to Start on Boot:
+   sudo systemctl enable docker
+
+5. Check Docker Installation:
+   docker --version
+
+6. Run a Test Docker Container:
+   docker run hello-world
+
+7. List Running Docker Containers:
+   docker ps
+
+8. Stop a Running Docker Container:
+   docker stop <container_name_or_id>
+
+9. Remove a Docker Container:
+   docker rm <container_name_or_id>
+
+10. View Logs of a Docker Container:
+    docker logs <container_name_or_id>
+
+11. Build Docker Image (if needed manually):
+    docker build -t your-username/flask-app .
+
+
+# Commands for the Master Machine (macOS)
+
+1. SSH into the Ubuntu Server:
+   ssh ubuntu@192.168.64.5
+
+2. Install Ansible (if not installed):
+   brew install ansible
+
+3. Check Ansible Installation:
+   ansible --version
+
+4. Ping the Host to Check Connectivity:
+   ansible -i inventory.ini app_servers -m ping
+
+5. Run the Ansible Playbook:
+   ansible-playbook -i inventory.ini deploy.yml
+
+6. Run Ansible Playbook in Verbose Mode (for debugging):
+   ansible-playbook -i inventory.ini deploy.yml -vvv
+
+
+# Additional Useful Commands (Both Machines)
+
+- Navigate to Project Directory:
+  cd /path/to/your/project
+
+- List Files in the Current Directory:
+  ls -l
+
+- Edit a File (using nano or any other editor):
+  nano filename
+
+- Check Running Processes (useful for debugging port issues):
+  ps aux
+
+- Find which process is using a specific port (e.g., port 80):
+  sudo lsof -i :80
